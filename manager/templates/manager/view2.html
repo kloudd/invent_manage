@@ -1,0 +1,262 @@
+{% extends "manager/index.html" %}
+{% block nav-view %}
+class="active"
+{% endblock %}
+{% block for_view %}
+<div class="container-fluid">
+	<div id="pageTab" class="row-fluid">
+		<div class="well-small">
+			<ul class="nav nav-tabs">
+				<li><a href="#page1"  data-toggle="tab">system config</a>
+				</li>
+				<li><a href="#page2"  data-toggle="tab">System INFO</a>
+				</li>
+				<li><a href="#page3"  data-toggle="tab">Warranty details</a>
+				</li>
+
+				<div class="">
+					<form class="form-search"action="{% url 'search' %}" method="get">
+						<a class = "btn btn-info btn-small offset1" href="{% url 'exp' %}">Export to .xls ( working )</a>
+						&nbsp;
+						<a class = "btn btn-info btn-small" href="{% url 'add' %}"><i class="icon-plus"></i>Add Online Record</a>
+
+						<input id="id_q" name="q" type="text"  class="input-medium search-query offset1" value="{{ query_string }}">
+						<button type="submit" class="btn">Search</button>
+						
+					</form>
+				</div>
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+
+<div class="well" style="font-size:12px">
+	<div class="tab-content">
+		<div id="page1" class="tab-pane">
+			<table class="table table-bordered sortable">
+				<thead> 
+					<tr>
+						<td></td>
+						<td></td>
+						<th><span class="btn">ID</span></th>
+						<th><span class="btn">UID</span></th>
+						<th><span class="btn">MACHINE</span></th>
+						
+						<th><span class="btn">MODEL</span></th>
+						<th><span class="btn">S&nbsp;NO.</span></th>
+						<th><span class="btn">PROCESSOR</span></th>
+						<th><span class="btn">RAM</span></th>
+						<th><span class="btn">HDD</span></th>
+						<th><span class="btn">OS</span></th>
+						<th><span class="btn">RAM&nbsp;DATE</span></th>
+						<th><span class="btn">HDD&nbsp;DATE</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if orderby %}
+					{% for poll in orderby %}
+					{% ifequal poll.working 1 %}
+					<!-- {% if poll.uid or poll.machinename or poll.department or poll.model_name or poll.s_no %} style="color:#C00" {%endif%} -->
+					<tr>
+						<td data-value="{{poll.id}}"><a class="btn btn-small btn-info" href="edit/{{poll.id}}"><i class="icon-edit"></i></a></td>
+						<td data-value="{{poll.id}}"><a class="btn btn-small btn-warning" href="delete/{{poll.id}}"><i class="icon-trash"></i></a></td>
+						<td data-value="{{poll.id}}">{{ poll.id }}</td>
+						<td data-value="{{poll.uid}}">{{ poll.uid }}</td>
+						<td data-value="{{poll.machinename}}">{{ poll.machinename }}</td>
+						
+						<td data-value="{{poll.model_name}}">{{ poll.model_name }}</td>
+						<td data-value="{{poll.s_no}}">{{ poll.s_no }}</td>
+						<td data-value="{{poll.processor}}">{{ poll.processor }}</td>
+						<td data-value="{{poll.ram}}">{{ poll.ram }}</td>
+						<td data-value="{{poll.hdd}}">{{ poll.hdd }}</td>
+						<td data-value="{{poll.os}}">{{ poll.os }}</td>
+						<td data-value="{{poll.ram_change_date}}">{{ poll.ram_change_date }}</td>
+						<td data-value="{{poll.hdd_change_date}}">{{ poll.hdd_change_date }}</td>
+					</tr>
+					{% endifequal %}
+					{% endfor %}
+					{% else %}
+					
+					{% endif %}
+				</tbody>
+				<tbody>
+					{% if found_entries %}
+					{% for poll in found_entries %}
+					{% ifequal poll.working 1 %}
+					<!-- {% if poll.uid or poll.machinename or poll.department or poll.model_name or poll.s_no %} style="color:#C00" {%endif%} -->
+					<tr>
+						<td data-value="{{poll.id}}"><a class="btn btn-small btn-info" href="edit/{{poll.id}}"><i class="icon-edit"></i></a></td>
+						<td data-value="{{poll.id}}"><a class="btn btn-small btn-warning" href="delete/{{poll.id}}"><i class="icon-trash"></i></a></td>
+						<td data-value="{{poll.id}}">{{ poll.id }}</td>
+						<td data-value="{{poll.uid}}">{{ poll.uid }}</td>
+						<td data-value="{{poll.machinename}}">{{ poll.machinename }}</td>
+						
+						<td data-value="{{poll.model_name}}">{{ poll.model_name }}</td>
+						<td data-value="{{poll.s_no}}">{{ poll.s_no }}</td>
+						<td data-value="{{poll.processor}}">{{ poll.processor }}</td>
+						<td data-value="{{poll.ram}}">{{ poll.ram }}</td>
+						<td data-value="{{poll.hdd}}">{{ poll.hdd }}</td>
+						<td data-value="{{poll.os}}">{{ poll.os }}</td>
+						<td data-value="{{poll.ram_change_date}}">{{ poll.ram_change_date }}</td>
+						<td data-value="{{poll.hdd_change_date}}">{{ poll.hdd_change_date }}</td>
+					</tr>
+					{% endifequal %}
+					{% endfor %}
+					{% else %}
+					
+					{% endif %}
+				</tbody>
+
+			</table>
+		</div>
+		<div id="page2" class="tab-pane">
+			<table class="table table-bordered sortable">
+				<thead>
+					<tr>
+						<td></td>
+						<td></td>
+						<th data-defaultsort="asc" data-sortkey="0"><span class="btn">ID</span></th>
+						<th><span class="btn">UID</span></th>
+						<th><span class="btn">ASSET&nbsp;CODE</span></th>
+						<th><span class="btn">ASSET&nbsp;CATEGORY</span></th>
+						<th><span class="btn">REGION</span></th>
+						<th><span class="btn">UNIT</span></th>
+						<th><span class="btn">LOCATION</span></th>
+						<th><span class="btn">FLOOR</span></th>
+						<th><span class="btn">USER&nbsp;NAME</span></th>
+						<th><span class="btn">EMP&nbsp;CODE</span></th>
+						<th><span class="btn">DESIGNATION</span></th>			
+					</tr>
+				</thead>
+				<tbody>
+					{% if orderby %}
+					{% for poll in orderby %}
+					{% ifequal poll.working 1 %}
+					<tr>
+						<td data-value="{{poll.id}}"><a class="btn btn-small btn-info" href="edit/{{poll.id}}"><i class="icon-edit"></i></a></td>
+						<td data-value="{{poll.id}}"><a class="btn btn-small btn-warning" href="delete/{{poll.id}}"><i class="icon-trash"></i></a></td>
+						<td data-value="{{poll.id}}">{{ poll.id }}</td>
+						<td data-value="{{poll.uid}}">{{ poll.uid }}</td>
+						<td data-value="{{poll.asset_code}}">{{ poll.asset_code }}</td>
+						<td data-value="{{poll.asset_category}}">{{ poll.asset_category }}</td>
+						<td data-value="{{poll.region}}">{{ poll.region }}</td>
+						<td data-value="{{poll.unit}}">{{ poll.unit }}</td>
+						<td data-value="{{poll.location}}">{{ poll.location }}</td>
+						<td data-value="{{poll.floor}}">{{ poll.floor }}</td>
+						<td data-value="{{poll.username}}">{{ poll.username }}</td>
+						<td data-value="{{poll.empcode}}">{{ poll.empcode }}</td>
+						<td data-value="{{poll.designation}}">{{ poll.designation }}</td>
+					</tr>
+					{% endifequal %}
+					{% endfor %}
+					{% else %}
+					
+					{% endif %}
+				</tbody>
+				<tbody>
+					{% if found_entries %}
+					{% for poll in found_entries %}
+					{% ifequal poll.working 1 %}
+					<tr>
+						<td data-value="{{poll.id}}"><a class="btn btn-small btn-info" href="edit/{{poll.id}}"><i class="icon-edit"></i></a></td>
+						<td data-value="{{poll.id}}"><a class="btn btn-small btn-warning" href="delete/{{poll.id}}"><i class="icon-trash"></i></a></td>
+						<td data-value="{{poll.id}}">{{ poll.id }}</td>
+						<td data-value="{{poll.uid}}">{{ poll.uid }}</td>
+						<td data-value="{{poll.asset_code}}">{{ poll.asset_code }}</td>
+						<td data-value="{{poll.asset_category}}">{{ poll.asset_category }}</td>
+						<td data-value="{{poll.region}}">{{ poll.region }}</td>
+						<td data-value="{{poll.unit}}">{{ poll.unit }}</td>
+						<td data-value="{{poll.location}}">{{ poll.location }}</td>
+						<td data-value="{{poll.floor}}">{{ poll.floor }}</td>
+						<td data-value="{{poll.username}}">{{ poll.username }}</td>
+						<td data-value="{{poll.empcode}}">{{ poll.empcode }}</td>
+						<td data-value="{{poll.designation}}">{{ poll.designation }}</td>
+					</tr>
+					{% endifequal %}
+					{% endfor %}
+					{% else %}
+					
+					{% endif %}
+				</tbody>
+
+
+			</table>
+		</div>
+		<div id="page3" class="tab-pane">
+			<table class="table table-bordered sortable">
+				<thead>
+					<tr>
+						<td></td>
+						<td></td>
+						<th data-defaultsort="asc" data-sortkey="0"><span class="btn">ID</span></th>
+						<th><span class="btn">UID</span></th>
+						<th><span class="btn">DEPARTMENT</span></th>
+						<th><span class="btn">ROLE</span></th>
+						<th><span class="btn">AMC</span></th>
+						<th><span class="btn">VENDOR</span></th>
+						<th><span class="btn">START DATE</span></th>
+						<th><span class="btn">EXP DATE</span></th>
+						<th><span class="btn">COMPANY</span></th>
+						<th><span class="btn">PO DETAILS</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if orderby %}
+					{% for poll in orderby %}
+					{% ifequal poll.working 1 %}
+					<tr>
+						<td data-value="{{poll.id}}"><a class="btn btn-small btn-info" href="edit/{{poll.id}}"><i class="icon-edit"></i></a></td>
+						<td data-value="{{poll.id}}"><a class="btn btn-small btn-warning" href="delete/{{poll.id}}"><i class="icon-trash"></i></a></td>
+						<td data-value="{{poll.id}}">{{ poll.id }}</td>
+						<td data-value="{{poll.uid}}">{{ poll.uid }}</td>
+						<td data-value="{{poll.department}}">{{ poll.department }}</td>
+						<td data-value="{{poll.role}}">{{ poll.role }}</td>
+						<td data-value="{{poll.warr_amc}}">{{ poll.warr_amc }}</td>
+						<td data-value="{{poll.warr_vend}}">{{ poll.warr_vend }}</td>
+						<td data-value="{{poll.warr_start_date}}">{{ poll.warr_start_date }}</td>
+						<td data-value="{{poll.warr_exp_date}}">{{ poll.warr_exp_date }}</td>
+						<td data-value="{{poll.company}}">{{ poll.company }}</td>
+						<td data-value="{{poll.po_details}}">{{ poll.po_details }}</td>
+					</tr>
+					{% endifequal %}
+					{% endfor %}
+					{% else %}
+					
+					{% endif %}
+				</tbody>
+				<tbody>
+					{% if found_entries %}
+					{% for poll in found_entries %}
+					{% ifequal poll.working 1 %}
+					<tr>
+						<td data-value="{{poll.id}}"><a class="btn btn-small btn-info" href="edit/{{poll.id}}"><i class="icon-edit"></i></a></td>
+						<td data-value="{{poll.id}}"><a class="btn btn-small btn-warning" href="delete/{{poll.id}}"><i class="icon-trash"></i></a></td>
+						<td data-value="{{poll.id}}">{{ poll.id }}</td>
+						<td data-value="{{poll.uid}}">{{ poll.uid }}</td>
+						<td data-value="{{poll.department}}">{{ poll.department }}</td>
+						<td data-value="{{poll.role}}">{{ poll.role }}</td>
+						<td data-value="{{poll.warr_amc}}">{{ poll.warr_amc }}</td>
+						<td data-value="{{poll.warr_vend}}">{{ poll.warr_vend }}</td>
+						<td data-value="{{poll.warr_start_date}}">{{ poll.warr_start_date }}</td>
+						<td data-value="{{poll.warr_exp_date}}">{{ poll.warr_exp_date }}</td>
+						<td data-value="{{poll.company}}">{{ poll.company }}</td>
+						<td data-value="{{poll.po_details}}">{{ poll.po_details }}</td>
+					</tr>
+					{% endifequal %}
+					{% endfor %}
+					{% else %}
+					
+					{% endif %}
+				</tbody>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(function () {
+	$('#pageTab a:first').tab('show');
+})
+</script>
+{% endblock %}

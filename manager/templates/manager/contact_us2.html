@@ -1,0 +1,18 @@
+{% extends "manager/index.html" %}
+{% block nav-status %}
+class="active"
+{% endblock %}
+{% block for_contacts %}
+<div class = "container well">
+	MACHINES WORKING: {{count_working}}
+	<br/>
+	MACHINES NOT WORKING: {{count_not_working}}
+	<br/>
+	TOTAL MACHINES: {{total}}
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<a href="{% url 'expfull' %}" class="btn btn-primary">Export to .xls ( working + not working )</a>
+</div>
+{% endblock %}

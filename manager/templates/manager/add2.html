@@ -1,0 +1,418 @@
+{% extends "manager/index.html" %}
+{% load bootstrap_toolkit %}
+
+{% block nav-add %}
+class="active"
+{% endblock %}
+{% block for_add %}
+<div class="container">
+  <div class="tabbable columns">
+    <form name = "myform" id="myform" class="form-horizontal" method="POST" action="/manager/handle_add/">
+      {% csrf_token %}
+      <ul class="nav nav-tabs" id="myTab">
+        <li><a href="#step1" data-toggle="tab">MACHINE INFO</a></li>
+        <li><a href="#step2" data-toggle="tab">MACHINE LOCATION</a></li>
+        <li><a href="#step3" data-toggle="tab">USER INFO</a></li>
+        <li><a href="#step4" data-toggle="tab">MACHINE CONFIGURATION</a></li>
+        <li><a href="#step5" data-toggle="tab">WARRANTY AND PO</a></li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active in" id="step1">
+          <div class="control-group">
+            <label class="control-label">UID</label>
+            <div class="controls">
+              <input type="text" name="uid" placeholder="UID">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">MACHINE NAME</label>
+            <div class="controls">
+              <input type="text" name="machinename" placeholder="machine name">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Asset Code</label>
+            <div class="controls">
+              <input type="text" name="asset_code" placeholder="asset code">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Asset Category</label>
+            <div class="controls">
+              <input type="text" name="asset_category" placeholder="asset category">
+            </div>
+          </div>
+
+        </div>
+        <div class="tab-pane fade" id="step2">
+          <div class="control-group">
+            <label class="control-label">REGION</label>
+            <div class="controls">
+              <select id="region" name="region" size=1 onchange="setOptionsforregion(document.myform.region.options[document.myform.region.selectedIndex].value);">
+                <option value="LUCKNOW">LUCKNOW</option>
+              </select>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">UNIT</label>
+            <div class="controls">
+              <select id="unit" name="unit" size="1" onchange="setOptionsforunit(document.myform.unit.options[document.myform.unit.selectedIndex].value);">
+                <option value="KANPUR" selected="selected">KANPUR</option>
+                <option value="VARANASI">VARANASI</option>
+                <option value="GORAKHPUR">GORAKHPUR</option>
+                <option value="ALLAHABAD">ALLAHABAD</option>
+                <option value="LUCKNOW">LUCKNOW</option>
+              </select>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Location</label>
+            <div class="controls">
+              <select name="location" id="location" size="1">
+                <option value="BANDA" selected="selected">BANDA</option>
+                <option value="ETAWAH">ETAWAH</option>
+                <option value="FARRUKHABAD">FARRUKHABAD</option>
+                <option value="FATHEPUR">FATHEPUR</option>
+                <option value="ORAI">ORAI</option>
+                <option value="JHASI">JHASI</option>
+                <option value="UNNAO">UNNAO</option>
+                <option value="HARDOI">HARDOI</option>
+                <option value="AKBARPUR">AKBARPUR</option>
+                <option value="AURRAIYA">AURRAIYA</option>
+                <option value="CHITRAKOOT">CHITRAKOOT</option>
+                <option value="KANNAUJ">KANNAUJ</option>
+                <option value="MAHOBA">MAHOBA</option>
+                <option value="HAMIRPUR">HAMIRPUR</option>
+                <option value="KANPUR">KANPUR</option>
+              </select>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Floor</label>
+            <div class="controls">
+              <input type="text" name="floor" placeholder="floor">
+            </div>
+          </div>
+
+
+        </div>
+        <div class="tab-pane fade" id="step3">
+
+          <div class="control-group">
+            <label class="control-label">Emp code</label>
+            <div class="controls">
+              <input type="text" name="empcode" placeholder="empcode">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">user name</label>
+            <div class="controls">
+              <input type="text" name="username" placeholder="user name">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Designation</label>
+            <div class="controls">
+              <input type="text" name="designation" placeholder="designation">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Department</label>
+            <div class="controls">
+              <select id="department" name="department" size=1 onchange="setOptions(document.myform.department.options[document.myform.department.selectedIndex].value);">
+                <option value="EDITORIALS">EDITORIALS(HINDI + ENGLISH)</option>
+                <option value="MEDIA MARKETING">MEDIA MARKETING</option>
+                <option value="CIRCULATION">CIRCULATION</option>
+                <option value="FINANCE">FINANCE</option>
+                <option value="HR">HR</option>
+                <option value="IT">IT</option>
+                <option value="LT">LT</option>
+                <option value="MINT">MINT</option>
+                <option value="OTHERS">OTHERS</option>
+                <option value="SUPPLY CHAIN">SUPPLY CHAIN</option>
+                <option value="MARKETING">MARKETING</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="SALES">SALES</option>
+                <option value="AD OPS">AD OPS</option>
+                <option value="IT STOCK USE">IT STOCK USE</option>
+                <option value="IT STOCK - NOT IN USE">IT STOCK - NOT IN USE</option>
+                <option value="SYNDICATION">SYNDICATION</option>
+                <option value="CALL CENTER">CALL CENTER</option>
+              </select>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Role</label>
+            <div class="controls">
+              <select id="role" name="role" size="1">
+                <option value="DESIGNER" selected="selected">DESIGNER</option>
+                <option value="DESK">DESK</option>
+                <option value="REPORTING">REPORTING</option>
+                <option value="PHOTO SECTION">PHOTO SECTION</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="step4">
+          <div class="control-group">
+            <label class="control-label">Model</label>
+            <div class="controls">
+              <input type="text" name="model_name" placeholder="model">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">S No</label>
+            <div class="controls">
+              <input type="text" name="s_no" placeholder="sno">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Processor</label>
+            <div class="controls">
+              <input type="text" name="processor" placeholder="processor">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">RAM</label>
+            <div class="controls">
+              <input type="text" name="ram" placeholder="ram">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">HDD</label>
+            <div class="controls">
+              <input type="text" name="hdd" placeholder="hdd">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">OS</label>
+            <div class="controls">
+              <input type="text" name="os" placeholder="os">
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="step5">
+          <div class="control-group">
+            <label class="control-label">Warranty/AMC</label>
+            <div class="controls">
+              <input type="text" name="warr_amc" placeholder="warr_amc">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Warranty Vendor</label>
+            <div class="controls">
+              <input type="text" name="warr_vend" placeholder="warr_vend">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Warranty Start Date</label>
+            
+            <div class="controls">
+              <div class="input-append date" id="dp1" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                <input name="warr_start_date" class="span7" size="16" type="text" value="12-02-2012">
+                <span class="add-on"><i class="icon-calendar"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Warranty Expiry Date</label>
+            <div class="controls">
+              <div class="input-append date" id="dp2" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                <input name="warr_exp_date" class="span7" size="16" type="text" value="12-02-2012">
+                <span class="add-on"><i class="icon-calendar"></i></span>
+              </div>
+            </div>
+            <br />
+            <div class="control-group">
+              <label class="control-label">Company</label>
+              <div class="controls">
+                <input type="text" name="company" placeholder="company">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Po Details</label>
+              <div class="controls">
+                <input type="text" name="po_details" placeholder="po_details">
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <input type="submit" value="submit" class="btn btn-primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+  $(function () {
+    $('#myTab a:first').tab('show');
+  })
+  </script>
+  <script>
+  function setOptions(chosen){
+    var selbox=document.myform.role;
+    selbox.options.length=0;
+    if(chosen == "EDITORIALS"){
+      selbox.options[selbox.options.length] = new Option('DESIGNER');
+      selbox.options[selbox.options.length] = new Option('DESK');
+      selbox.options[selbox.options.length] = new Option('REPORTING');
+      selbox.options[selbox.options.length] = new Option('PHOTO SECTION');
+    }
+    if(chosen=="MEDIA MARKETING"){
+      selbox.options[selbox.options.length] = new Option('CREATIVE');
+      selbox.options[selbox.options.length] = new Option('MIS');
+      selbox.options[selbox.options.length] = new Option('MARKETING');
+      selbox.options[selbox.options.length] = new Option('FEILD');
+      selbox.options[selbox.options.length] = new Option('AD OPS-MM');
+      selbox.options[selbox.options.length] = new Option('COMMERCIAL');
+    }
+    if(chosen=="CIRCULATION"){
+      selbox.options[selbox.options.length] = new Option('CIRCULATION');
+
+    }
+
+    if(chosen=="FINANCE"){
+      selbox.options[selbox.options.length] = new Option('FINANCE');
+    }
+
+    if(chosen=="HR"){
+      selbox.options[selbox.options.length] = new Option('HR');
+    }
+
+    if(chosen=="IT"){
+      selbox.options[selbox.options.length] = new Option('IT');
+    }
+    if(chosen=="LT"){
+      selbox.options[selbox.options.length] = new Option('LT');
+    }
+    if(chosen=="MINT"){
+      selbox.options[selbox.options.length] = new Option('MINT');
+    }
+    if(chosen=="OTHERS"){
+      selbox.options[selbox.options.length] = new Option('OTHERS');
+    }
+    if(chosen=="SUPPLY CHAIN"){
+      selbox.options[selbox.options.length] = new Option('SUPPLY CHAIN');
+      selbox.options[selbox.options.length] = new Option('PREE PRES');
+    }
+    if(chosen=="MARKETING"){
+      selbox.options[selbox.options.length] = new Option('MARKETING');
+    }
+    if(chosen=="ADMIN"){
+      selbox.options[selbox.options.length] = new Option('ADMIN');
+    }
+    if(chosen=="SALES"){
+      selbox.options[selbox.options.length] = new Option('SALES');
+      selbox.options[selbox.options.length] = new Option('SALES BACKEND');
+    }
+    if(chosen=="AD OPS"){
+      selbox.options[selbox.options.length] = new Option('AD OPS');
+    }
+    if(chosen=="IT STOCK USE"){
+      selbox.options[selbox.options.length] = new Option('IT STOCK - WORKING');
+    }
+    if(chosen=="IT STOCK - NOT IN USE"){
+      selbox.options[selbox.options.length] = new Option('IT STOCK - JUNK');
+      selbox.options[selbox.options.length] = new Option('IT STOCK - WORKING');
+      selbox.options[selbox.options.length] = new Option('IT STOCK - REPAIR');
+    }
+    if(chosen=="SYNDICATION"){
+      selbox.options[selbox.options.length] = new Option('SYNDICATION');
+    }
+    if(chosen=="CALL CENTER"){
+      selbox.options[selbox.options.length] = new Option('CALL CENTER');
+    }
+  }
+  </script>
+  <script>
+  function setOptionsforregion(chosen){
+    var selbox=document.myform.unit;
+    selbox.options.length=0;
+    if(chosen == "LUCKNOW"){
+      selbox.options[selbox.options.length] = new Option('KANPUR');
+      selbox.options[selbox.options.length] = new Option('VARANASI');
+      selbox.options[selbox.options.length] = new Option('GORAKHPUR');
+      selbox.options[selbox.options.length] = new Option('ALLAHABAD');
+      selbox.options[selbox.options.length] = new Option('LUCKNOW');
+    }
+  }
+  </script>
+  <script>
+  function setOptionsforunit(chosen){
+    var selbox=document.myform.location;
+    selbox.options.length=0;
+    if(chosen == "KANPUR"){
+      selbox.options[selbox.options.length] = new Option('BANDA');
+      selbox.options[selbox.options.length] = new Option('ETAWAH');
+      selbox.options[selbox.options.length] = new Option('FARRUKHABAD');
+      selbox.options[selbox.options.length] = new Option('FATHEPUR');
+      selbox.options[selbox.options.length] = new Option('ORAI');
+      selbox.options[selbox.options.length] = new Option('JHASI');
+      selbox.options[selbox.options.length] = new Option('UNNAO');
+      selbox.options[selbox.options.length] = new Option('HARDOI');
+      selbox.options[selbox.options.length] = new Option('AKBARPUR');
+      selbox.options[selbox.options.length] = new Option('AURRAIYA');
+      selbox.options[selbox.options.length] = new Option('CHITRAKOOT');
+      selbox.options[selbox.options.length] = new Option('KANNAUJ');
+      selbox.options[selbox.options.length] = new Option('MAHOBA');
+      selbox.options[selbox.options.length] = new Option('HAMIRPUR');
+      selbox.options[selbox.options.length] = new Option('KANPUR');
+    }
+    if(chosen == "VARANASI"){
+      selbox.options[selbox.options.length] = new Option('GHAZIPUR');
+      selbox.options[selbox.options.length] = new Option('MAU');
+      selbox.options[selbox.options.length] = new Option('MUGHALSARAI');
+      selbox.options[selbox.options.length] = new Option('AZAMGARH');
+      selbox.options[selbox.options.length] = new Option('BALLIA');
+      selbox.options[selbox.options.length] = new Option('GYANPUR');
+      selbox.options[selbox.options.length] = new Option('JAUNPUR');
+      selbox.options[selbox.options.length] = new Option('MIRZAPUR');
+      selbox.options[selbox.options.length] = new Option('SONBHADRA');
+      selbox.options[selbox.options.length] = new Option('ANPARA');
+      selbox.options[selbox.options.length] = new Option('CHANDAULI');
+      selbox.options[selbox.options.length] = new Option('BHADOHI');
+      selbox.options[selbox.options.length] = new Option('VARANASI');
+
+
+    }
+    if(chosen == "GORAKHPUR"){
+      selbox.options[selbox.options.length] = new Option('MAHARAJGANJ');
+      selbox.options[selbox.options.length] = new Option('SIDDARTH NAGAR');
+      selbox.options[selbox.options.length] = new Option('SANTKABIR NAGAR');
+      selbox.options[selbox.options.length] = new Option('BASTI');
+      selbox.options[selbox.options.length] = new Option('DEORIA');
+      selbox.options[selbox.options.length] = new Option('PADRAUNA');
+      selbox.options[selbox.options.length] = new Option('GORAKHPUR');
+    }
+    if(chosen == "ALLAHABAD"){
+      selbox.options[selbox.options.length] = new Option('KHUSHAMBI');
+      selbox.options[selbox.options.length] = new Option('PRATABGARH');
+      selbox.options[selbox.options.length] = new Option('NAINI');
+      selbox.options[selbox.options.length] = new Option('ALLAHABAD');
+    }
+    if(chosen == "LUCKNOW"){
+      selbox.options[selbox.options.length] = new Option('BAHRAICH');
+      selbox.options[selbox.options.length] = new Option('BARABANKI');
+      selbox.options[selbox.options.length] = new Option('GONDA');
+      selbox.options[selbox.options.length] = new Option('FAIZABAD');
+      selbox.options[selbox.options.length] = new Option('RAIBARELI');
+      selbox.options[selbox.options.length] = new Option('SHRAWASTI');
+      selbox.options[selbox.options.length] = new Option('BALRAMPUR');
+      selbox.options[selbox.options.length] = new Option('AMBEDKARNAGAR');
+      selbox.options[selbox.options.length] = new Option('SITAPUR');
+      selbox.options[selbox.options.length] = new Option('SULTANPUR');
+      selbox.options[selbox.options.length] = new Option('LUCKNOW');
+    }
+  }
+  </script>
+  <script>
+  $('#dp1').datepicker()
+  $('#dp2').datepicker()
+  </script>
+  {% endblock %}

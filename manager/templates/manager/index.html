@@ -1,0 +1,105 @@
+{% load staticfiles %}
+{% load bootstrap_toolkit %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link type="text/css" rel="stylesheet" href="{% static 'manager/bootstrap/css/bootstrap.css' %}"/>
+	<link type="text/css" rel="stylesheet" href="{% static 'manager/bootstrap/css/datepicker.css' %}"/>
+	<link type="text/css" rel="stylesheet" href="{% static 'manager/bootstrap/css/bootstrap-sortable.css' %}"/>
+	<link type="text/css" rel="stylesheet" href="{% static 'manager/bootstrap/css/docs.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="/media/admin/css/forms.css"/>
+	<link rel="stylesheet" type="text/css" href="/media/admin/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="/media/admin/css/global.css"/>
+	<link rel="stylesheet" type="text/css" href="/media/admin/css/widgets.css"/>
+
+	<!-- <link type="text/css" rel="stylesheet" href="{% static 'manager/bootstrap/css/bootstrap-sortable.css' %}"/> -->
+	<title>INVENTORY MANAGEMENT</title>
+	<link href="{% static 'manager/bootstrap/img/icon.ico' %}" rel="icon">
+	<link href="{% static 'manager/bootstrap/img/icon.ico' %}" rel="shortcut icon">
+	<script src="{% static 'manager/bootstrap/js/jquery.js' %}"></script>
+	<script src="{% static 'manager/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'manager/bootstrap/js/bootstrap-sortable.js' %}"></script>
+	<script type="text/javascript" src="/my_admin/jsi18n/"></script>
+	<script type="text/javascript" src="/media/admin/js/core.js"></script>
+	<script type="text/javascript" src="{% static 'manager/bootstrap/js/bootstrap-datepicker.js' %}"></script>
+	<!-- // <script type="text/javascript" src="{% static 'manager/bootstrap/js/bootstrap-sortable.js' %}"></script> -->
+</head>
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<ul class="nav">
+					<li{% block nav-index %}
+					{% endblock %}>
+					<a href = "{% url 'index2' %}">HOME</a></li>
+					<li{% block nav-view %}
+					{% endblock %}>
+					<a href = "{% url 'view' %}">VIEW ONLINE STOCK</a></li>
+					<li{% block nav-add %}
+					{% endblock %}>
+					<a href = "{% url 'add' %}">ADD ONLINE STOCK</a></li>
+					<li{% block nav-viewofflinestock %}
+					{% endblock %}>
+					<a href = "{% url 'view_offline_stock' %}">VIEW OFFLINE STOCK</a></li>
+					<li{% block nav-addofflinestock %}
+					{% endblock %}>
+					<a href = "{% url 'add_offline_stock' %}">ADD OFFLINE STOCK</a></li>
+					
+					<li{% block nav-status %}
+					{% endblock %}>
+					<a href = "{% url 'contact_us' %}">STATUS</a></li>
+					<li>
+						<div class="">
+							<a class="brand" href = "{% url 'adminpage' %}"><i class="icon-user icon-white"></i></a>
+						</div>
+					</li>
+					<li>
+						<div>
+							<a class="brand" href = "{% url 'logout' %}"><i class="icon-off icon-white"></i></a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="jumbotron subhead" id="pageTop">
+		<div class="container">
+			<h2>WELCOME TO HINDUSTAN TIMES </br>INVENTORY MANGAEMENT!!!</h2>
+		</div>
+	</div>
+	<div class="">
+		<div id="pageMiddle" class="container-fluid">
+			<div class="row-fluid">
+				<!-- <div class="span2 well">
+					<td>
+						<ul class="nav nav-pills nav-stacked">
+					</td>
+				</div> -->
+
+				<!-- <div id="pageRight" class="span10 well"> -->
+				{% block for_index %}
+				{% endblock %}
+				{% block for_view %}
+				{% endblock %}
+				{% block for_add %}
+				{% endblock %}
+				{% block for_edit %}
+				{% endblock %}
+				{% block for_notadd %}
+				{% endblock %}
+				{% block for_addofflinestock %}
+				{% endblock %}
+				{% block for_viewofflinestock %}
+				{% endblock %}
+				{% block for_contacts %}
+				{% endblock %}
+				{% block for_inuse %}
+				{% endblock %}
+
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

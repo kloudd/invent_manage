@@ -1,0 +1,84 @@
+{% extends "manager/index.html" %}
+{% load bootstrap_toolkit %}
+{% block nav-viewofflinestock %}
+class="active"
+{% endblock %}
+{% block for_viewofflinestock %}
+
+<div class="container-fluid">
+  <div id="pageTab" class="row-fluid">
+    <div class="container well">
+      <div class="">
+        <form class="form-search"action="{% url 'searchoffline' %}" method="get">
+         <a href="{% url 'expoffline' %}" class="btn btn-info">Export to .xls ( not working )</a>
+         <input id="id_q" name="q" type="text"  class="input-medium search-query" value="{{ query_string }}">
+         <button type="submit" class="btn">Search</button>
+       </form>
+     </div>
+     
+     <table class="table table-bordered sortable" style="font-size:12px">
+      <thead>
+        <tr>
+          <td></td>
+          <td></td>
+          <th data-defaultsort="asc" data-sortkey="0"><span class="btn">ID</span></th>
+          <th><span class="btn">MODEL</span></th>
+          <th><span class="btn">S&nbsp;NO.</span></th>
+          <th><span class="btn">PROCESSOR</span></th>
+          <th><span class="btn">RAM</span></th>
+          <th><span class="btn">HDD</span></th>
+          <th><span class="btn">OS</span></th>
+          <th><span class="btn">RAM DATE</span></th>
+          <th><span class="btn">HDD DATE</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if orderby %}
+        {% for poll in orderby %}
+        {% ifequal poll.working 0 %}
+        <!-- {% if poll.uid or poll.username or poll.department or poll.model_name or poll.s_no %} style="color:#C00" {%endif%} -->
+        <tr>
+          <td data-value="{{poll.id}}"><a class="btn btn-small btn-info" href="edit/{{poll.id}}"><i class="icon-edit"></i></a></td>
+          <td data-value="{{poll.id}}"><a class="btn btn-small btn-warning" href="delete/{{poll.id}}"><i class="icon-trash"></i></a></td>
+          <td data-value="{{ poll.id }}">{{ poll.id }}</td>
+          <td data-value="{{ poll.model_name }}">{{ poll.model_name }}</td>
+          <td data-value="{{ poll.s_no }}">{{ poll.s_no }}</td>
+          <td data-value="{{ poll.processor }}">{{ poll.processor }}</td>
+          <td data-value="{{ poll.ram }}">{{ poll.ram }}</td>
+          <td data-value="{{ poll.hdd }}">{{ poll.hdd }}</td>
+          <td data-value="{{ poll.os }}">{{ poll.os }}</td>
+          <td value="{{ poll.ram_change_date }}">{{ poll.ram_change_date }}</td>
+          <td data-value="{{ poll.hdd_change_date }}">{{ poll.hdd_change_date }}</td>
+        </tr>
+        {% endifequal %}
+        {% endfor %}
+        {% else %}
+        {% endif %}
+      </tbody> 
+      <tbody>
+        {% if found_entries %}
+        {% for poll in found_entries %}
+        {% ifequal poll.working 0 %}
+        <!-- {% if poll.uid or poll.username or poll.department or poll.model_name or poll.s_no %} style="color:#C00" {%endif%} -->
+        <tr>
+          <td data-value="{{poll.id}}"><a class="btn btn-small btn-info" href="edit/{{poll.id}}"><i class="icon-edit"></i></a></td>
+          <td data-value="{{poll.id}}"><a class="btn btn-small btn-warning" href="delete/{{poll.id}}"><i class="icon-trash"></i></a></td>
+          <td data-value="{{ poll.id }}">{{ poll.id }}</td>
+          <td data-value="{{ poll.model_name }}">{{ poll.model_name }}</td>
+          <td data-value="{{ poll.s_no }}">{{ poll.s_no }}</td>
+          <td data-value="{{ poll.processor }}">{{ poll.processor }}</td>
+          <td data-value="{{ poll.ram }}">{{ poll.ram }}</td>
+          <td data-value="{{ poll.hdd }}">{{ poll.hdd }}</td>
+          <td data-value="{{ poll.os }}">{{ poll.os }}</td>
+          <td value="{{ poll.ram_change_date }}">{{ poll.ram_change_date }}</td>
+          <td data-value="{{ poll.hdd_change_date }}">{{ poll.hdd_change_date }}</td>
+        </tr>
+        {% endifequal %}
+        {% endfor %}
+        {% else %}
+        {% endif %}
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

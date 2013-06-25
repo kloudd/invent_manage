@@ -1,0 +1,57 @@
+{% extends "manager/index.html" %}
+{% load bootstrap_toolkit %}
+{% block nav-addofflinestock %}
+class="active"
+{% endblock %}
+{% block for_addofflinestock %}
+<div class="container">
+	<form name="myform" id="myform" method="POST" action="/manager/handle_offline_add/">
+		{% csrf_token %}
+		<ul class="nav nav-tabs" id="myTab">
+        <li><a href="#step4" data-toggle="tab">MACHINE CONFIGURATION</a></li>
+      </ul>
+      <div class="tab-pane fade active in" id="step4">
+          <div class="control-group">
+            <label class="control-label">Model</label>
+            <div class="controls">
+              <input type="text" name="model_name" placeholder="model">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">S No</label>
+            <div class="controls">
+              <input type="text" name="s_no" placeholder="sno">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Processor</label>
+            <div class="controls">
+              <input type="text" name="processor" placeholder="processor">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">RAM</label>
+            <div class="controls">
+              <input type="text" name="ram" placeholder="ram">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">HDD</label>
+            <div class="controls">
+              <input type="text" name="hdd" placeholder="hdd">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">OS</label>
+            <div class="controls">
+              <input type="text" name="os" placeholder="os">
+            </div>
+          </div>
+          <div class="controls">
+            <input type="submit" value="submit" class="btn btn-primary" />
+          </div>
+        </div>
+	</form>
+
+</div>
+{% endblock %}

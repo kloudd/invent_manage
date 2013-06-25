@@ -1,0 +1,584 @@
+{% extends "manager/index.html" %}
+{% load bootstrap_toolkit %}
+{% block nav-view %}
+class="active"
+{% endblock %}
+{% block content %}
+{% endblock %}
+{% block for_edit %}
+<div class="container">
+  <div class="tabbable columns">
+   <form name = "myform" id="myform" class="form-horizontal" method="POST" action="/manager/handle_edit/">
+    {% csrf_token %}
+    <ul class="nav nav-tabs" id="myTab">
+      <li><a href="#step1" data-toggle="tab">MACHINE INFO</a></li>
+      <li><a href="#step2" data-toggle="tab">MACHINE LOCATION</a></li>
+      <li><a href="#step3" data-toggle="tab">USER INFO</a></li>
+      <li><a href="#step4" data-toggle="tab">MACHINE CONFIGURATION</a></li>
+      <li><a href="#step5" data-toggle="tab">WARRANTY AND PO</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div class="tab-pane fade active in" id="step1">
+        <div class="control-group">
+          <label class="control-label">ID</label>
+          <div class="controls">
+            <input type="text" name="id" placeholder="ID" value="{{obj.id}}" >
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">UID</label>
+          <div class="controls">
+            <input type="text" name="uid" placeholder="UID" value="{{obj.uid}}">
+          </div>
+        </div>
+         <div class="control-group">
+          <label class="control-label">WORKING</label>
+          <div class="controls">
+            <input type="text" name="working" placeholder="working" value="{{obj.working}}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">MACHINE NAME</label>
+          <div class="controls">
+            <input type="text" name="machinename" placeholder="machine name" value="{{obj.machinename}}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Asset Code</label>
+          <div class="controls">
+            <input type="text" name="asset_code" placeholder="asset code" value="{{obj.asset_code}}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Asset Category</label>
+          <div class="controls">
+            <input type="text" name="asset_category" placeholder="asset category" value="{{obj.asset_category}}">
+          </div>
+        </div>
+        
+      </div>
+      <div class="tab-pane fade" id="step2">
+        <div class="control-group">
+          <label class="control-label">Region</label>
+          <div class="controls">
+            <select id="region" name="region" size=1 onchange="setOptionsforregion(document.myform.region.options[document.myform.region.selectedIndex].value);">
+              <option value="LUCKNOW" 
+              {% ifequal obj.region "LUCKNOW" %}
+              selected="selected" 
+              {% endifequal %}>LUCKNOW</option>
+            </select>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">unit</label>
+          <div class="controls">
+            <select id="unit" name="unit" size="1" onchange="setOptionsforunit(document.myform.unit.options[document.myform.unit.selectedIndex].value);">
+              <option value="KANPUR" 
+              {% ifequal obj.unit "KANPUR"%}
+              selected="selected" {% endifequal %}>KANPUR</option>
+              <option value="VARANASI" 
+              {% ifequal obj.unit "VARANASI"%}
+              selected="selected" {% endifequal %}>VARANASI</option>
+              <option value="GORAKHPUR" 
+              {% ifequal obj.unit "GORAKHPUR"%}
+              selected="selected" {% endifequal %}>GORAKHPUR</option>
+              <option value="ALLAHABAD" 
+              {% ifequal obj.unit "ALLAHABAD"%}
+              selected="selected" {% endifequal %}>ALLAHABAD</option>
+              <option value="LUCKNOW" 
+              {% ifequal obj.unit "LUCKNOW"%}
+              selected="selected" {% endifequal %}>LUCKNOW</option>
+            </select>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Location</label>
+          <div class="controls">
+            <select name="location" id="location" size="1">
+              <option value="BANDA" {% ifequal obj.location "BANDA" %}
+              selected="selected" {% endifequal %}>BANDA</option>
+              <option value="ETAWAH" {% ifequal obj.location "ETAWAH" %}
+              selected="selected" {% endifequal %}>ETAWAH</option>
+              <option value="FARRUKHABAD" {% ifequal obj.location "FARRUKHABAD"%}
+              selected="selected" {% endifequal %}>FARRUKHABAD</option>
+              <option value="FATHEPUR" {% ifequal obj.location "FATHEPUR"%}
+              selected="selected" {% endifequal %}>FATHEPUR</option>
+              <option value="ORAI" {% ifequal obj.location "ORAI"%}
+              selected="selected" {% endifequal %}>ORAI</option>
+              <option value="JHASI" {% ifequal obj.location "JHASI"%}
+              selected="selected" {% endifequal %}>JHASI</option>
+              <option value="UNNAO" {% ifequal obj.location "UNNAO"%}
+              selected="selected" {% endifequal %}>UNNAO</option>
+              <option value="HARDOI" {% ifequal obj.location "HARDOI"%}
+              selected="selected" {% endifequal %}>HARDOI</option>
+              <option value="AKBARPUR" {% ifequal obj.location "AKBARPUR"%}
+              selected="selected" {% endifequal %}>AKBARPUR</option>
+              <option value="AURRAIYA" {% ifequal obj.location "AURRAIYA"%}
+              selected="selected" {% endifequal %}>AURRAIYA</option>
+              <option value="CHITRAKOOT" {% ifequal obj.location "CHITRAKOOT"%}
+              selected="selected" {% endifequal %}>CHITRAKOOT</option>
+              <option value="KANNAUJ" {% ifequal obj.location "KANNAUJ"%}
+              selected="selected" {% endifequal %}>KANNAUJ</option>
+              <option value="MAHOBA" {% ifequal obj.location "MAHOBA"%}
+              selected="selected" {% endifequal %}>MAHOBA</option>
+              <option value="HAMIRPUR" {% ifequal obj.location "HAMIRPUR"%}
+              selected="selected" {% endifequal %}>HAMIRPUR</option>
+              <option value="GHAZIPUR"{% ifequal obj.location "GHAZIPUR"%}
+              selected="selected" {% endifequal %}>GHAZIPUR</option>
+              <option value="MAU"{% ifequal obj.location "MAU"%}
+              selected="selected" {% endifequal %}>MAU</option>
+              <option value="MUGHALSARAI"{% ifequal obj.location "MUGHALSARAI"%}
+              selected="selected" {% endifequal %}>MUGHALSARAI</option>
+              <option value="AZAMGARH"{% ifequal obj.location "AZAMGARH"%}
+              selected="selected" {% endifequal %}>AZAMGARH</option>
+              <option value="BALLIA"{% ifequal obj.location "BALLIA"%}
+              selected="selected" {% endifequal %}>BALLIA</option>
+              <option value="GYANPUR"{% ifequal obj.location "GYANPUR"%}
+              selected="selected" {% endifequal %}>GYANPUR</option>
+              <option value="JAUNPUR"{% ifequal obj.location "JAUNPUR"%}
+              selected="selected" {% endifequal %}>JAUNPUR</option>
+              <option value="MIRZAPUR"{% ifequal obj.location "MIRZAPUR"%}
+              selected="selected" {% endifequal %}>MIRZAPUR</option>
+              <option value="SONBHADRA"{% ifequal obj.location "SONBHADRA"%}
+              selected="selected" {% endifequal %}>SONBHADRA</option>
+              <option value="ANPARA"{% ifequal obj.location "ANPARA"%}
+              selected="selected" {% endifequal %}>ANPARA</option>
+              <option value="CHANDAULI"{% ifequal obj.location "CHANDAULI"%}
+              selected="selected" {% endifequal %}>CHANDAULI</option>
+              <option value="BHADOHI"{% ifequal obj.location "BHADOHI"%}
+              selected="selected" {% endifequal %}>BHADOHI</option>
+              <option value="VARANASI"{% ifequal obj.location "VARANASI"%}
+              selected="selected" {% endifequal %}>VARANASI</option>
+              <option value="MAHARAJGANJ"{% ifequal obj.location "MAHARAJGANJ"%}
+              selected="selected" {% endifequal %}>MAHARAJGANJ</option>
+              <option value="SIDDARTH NAGAR"{% ifequal obj.location "SIDDARTH NAGAR"%}
+              selected="selected" {% endifequal %}>SIDDARTH NAGAR</option>
+              <option value="SANTKABIR NAGAR"{% ifequal obj.location "SANTKABIR NAGAR"%}
+              selected="selected" {% endifequal %}>SANTKABIR NAGAR</option>
+              <option value="BASTI"{% ifequal obj.location "BASTI"%}
+              selected="selected" {% endifequal %}>BASTI</option>
+              <option value="DEORIA"{% ifequal obj.location "DEORIA"%}
+              selected="selected" {% endifequal %}>DEORIA</option>
+              <option value="PADRAUNA"{% ifequal obj.location "PADRAUNA"%}
+              selected="selected" {% endifequal %}>PADRAUNA</option>
+              <option value="GORAKHPUR"{% ifequal obj.location "GORAKHPUR"%}
+              selected="selected" {% endifequal %}>GORAKHPUR</option>
+              <option value="KAUSHAMBI"{% ifequal obj.location "KAUSHAMBI"%}
+              selected="selected" {% endifequal %}>KAUSHAMBI</option>
+              <option value="PRATAPGARH"{% ifequal obj.location "PRATAPGARH"%}
+              selected="selected" {% endifequal %}>PRATAPGARH</option>
+              <option value="NAINI"{% ifequal obj.location "NAINI"%}
+              selected="selected" {% endifequal %}>NAINI</option>
+              <option value="ALLAHABAD"{% ifequal obj.location "ALLAHABAD"%}
+              selected="selected" {% endifequal %}>ALLAHABAD</option>
+              <option value="BAHRAICH"{% ifequal obj.location "BAHRAICH"%}
+              selected="selected" {% endifequal %}>BAHRAICH</option>
+              <option value="BARABANKI"{% ifequal obj.location "BARABANKI"%}
+              selected="selected" {% endifequal %}>BARABANKI</option>
+              <option value="GONDA"{% ifequal obj.location "GONDA"%}
+              selected="selected" {% endifequal %}>GONDA</option>
+              <option value="FAIZABAD"{% ifequal obj.location "FAIZABAD"%}
+              selected="selected" {% endifequal %}>FAIZABAD</option>
+              <option value="RAIBARELI"{% ifequal obj.location "RAIBARELI"%}
+              selected="selected" {% endifequal %}>RAIBARELI</option>
+              <option value="SHRAWASTI"{% ifequal obj.location "SHRAWASTI"%}
+              selected="selected" {% endifequal %}>SHRAWASTI</option>
+              <option value="BALRAMPUR"{% ifequal obj.location "BALRAMPUR"%}
+              selected="selected" {% endifequal %}>BALRAMPUR</option>
+              <option value="AMBEDKARNAGAR"{% ifequal obj.location "AMBEDKARNAGAR"%}
+              selected="selected" {% endifequal %}>AMBEDKARNAGAR</option>
+              <option value="SITAPUR"{% ifequal obj.location "SITAPUR"%}
+              selected="selected" {% endifequal %}>SITAPUR</option>
+              <option value="SULTANPUR"{% ifequal obj.location "SULTANPUR"%}
+              selected="selected" {% endifequal %}>SULTANPUR</option>
+              <option value="LUCKNOW"{% ifequal obj.location "LUCKNOW"%}
+              selected="selected" {% endifequal %}>LUCKNOW</option>
+
+
+
+
+            </select>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Floor</label>
+          <div class="controls">
+            <input type="text" name="floor" placeholder="floor" value="{{obj.floor}}">
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="step3">
+        <div class="control-group">
+          <label class="control-label">Emp code</label>
+          <div class="controls">
+            <input type="text" name="empcode" placeholder="empcode" value="{{obj.empcode}}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">User name</label>
+          <div class="controls">
+            <input type="text" name="username" placeholder="user name" value="{{obj.username}}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Designation</label>
+          <div class="controls">
+            <input type="text" name="designation" placeholder="designation" value="{{obj.designation}}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Department</label>
+          <div class="controls">
+            <select id="department" name="department" size=1 onchange="setOptions(document.myform.department.options[document.myform.department.selectedIndex].value);">
+              <option value="EDITORIALS"{% ifequal obj.department "EDITORIALS(HINDI + ENGLISH)"%}
+              selected="selected" {% endifequal %}>EDITORIALS(HINDI + ENGLISH)</option>
+              <option value="MEDIA MARKETING"{% ifequal obj.department "MEDIA MARKETING"%}
+              selected="selected" {% endifequal %}>MEDIA MARKETING</option>
+              <option value="CIRCULATION"{% ifequal obj.department "CIRCULATION"%}
+              selected="selected" {% endifequal %}>CIRCULATION</option>
+              <option value="FINANCE"{% ifequal obj.department "FINANCE"%}
+              selected="selected" {% endifequal %}>FINANCE</option>
+              <option value="HR"{% ifequal obj.department "HR"%}
+              selected="selected" {% endifequal %}>HR</option>
+              <option value="IT"{% ifequal obj.department "IT"%}
+              selected="selected" {% endifequal %}>IT</option>
+              <option value="LT"{% ifequal obj.department "LT"%}
+              selected="selected" {% endifequal %}>LT</option>
+              <option value="MINT"{% ifequal obj.department "MINT"%}
+              selected="selected" {% endifequal %}>MINT</option>
+              <option value="OTHERS"{% ifequal obj.department "OTHERS"%}
+              selected="selected" {% endifequal %}>OTHERS</option>
+              <option value="SUPPLY CHAIN"{% ifequal obj.department "SUPPLY CHAIN"%}
+              selected="selected" {% endifequal %}>SUPPLY CHAIN</option>
+              <option value="MARKETING"{% ifequal obj.department "MARKETING"%}
+              selected="selected" {% endifequal %}>MARKETING</option>
+              <option value="ADMIN"{% ifequal obj.department "ADMIN"%}
+              selected="selected" {% endifequal %}>ADMIN</option>
+              <option value="SALES"{% ifequal obj.department "SALES"%}
+              selected="selected" {% endifequal %}>SALES</option>
+              <option value="AD OPS"{% ifequal obj.department "AD OPS"%}
+              selected="selected" {% endifequal %}>AD OPS</option>
+              <option value="IT STOCK USE"{% ifequal obj.department "IT STOCK USE"%}
+              selected="selected" {% endifequal %}>IT STOCK USE</option>
+              <option value="IT STOCK - NOT IN USE"{% ifequal obj.department "IT STOCK - NOT IN USE"%}
+              selected="selected" {% endifequal %}>IT STOCK - NOT IN USE</option>
+              <option value="SYNDICATION"{% ifequal obj.department "SYNDICATION"%}
+              selected="selected" {% endifequal %}>SYNDICATION</option>
+              <option value="CALL CENTER"{% ifequal obj.department "CALL CENTER"%}
+              selected="selected" {% endifequal %}>CALL CENTER</option>
+            </select>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Role</label>
+          <div class="controls">
+            <select id="role" name="role" size="1">
+              <option value="DESIGNER" {% ifequal obj.role "DESIGNER"%}
+              selected="selected" {% endifequal %}>DESIGNER</option>
+              <option value="DESK"{% ifequal obj.role "DESK"%}
+              selected="selected" {% endifequal %}>DESK</option>
+              <option value="REPORTING" {% ifequal obj.role "REPORTING"%}
+              selected="selected" {% endifequal %}>REPORTING</option>
+              <option value="PHOTO SECTION"{% ifequal obj.role "PHOTO SECTION"%}
+              selected="selected" {% endifequal %}>PHOTO SECTION</option>
+              <option value="CREATIVE" {% ifequal obj.role "CREATIVE"%}
+              selected="selected" {% endifequal %}>CREATIVE</option>
+              <option value="MIS" {% ifequal obj.role "MIS"%}
+              selected="selected" {% endifequal %}>MIS</option>
+              <option value="MARKETING" {% ifequal obj.role "MARKETING"%}
+              selected="selected" {% endifequal %}>MARKETING</option>
+              <option value="FEILD" {% ifequal obj.role "FEILD"%}
+              selected="selected" {% endifequal %}>FEILD</option>
+              <option value="AD OPS-MM" {% ifequal obj.role "AD OPS-MM"%}
+              selected="selected" {% endifequal %}>AD OPS-MM</option>
+              <option value="COMMERCIAL" {% ifequal obj.role "COMMERCIAL"%}
+              selected="selected" {% endifequal %}>COMMERCIAL</option>
+              <option value="CIRCULATION" {% ifequal obj.role "CIRCULATION"%}
+              selected="selected" {% endifequal %}>CIRCULATION</option>
+              <option value="FINANCE" {% ifequal obj.role "FINANCE"%}
+              selected="selected" {% endifequal %}>FINANCE</option>
+              <option value="HR" {% ifequal obj.role "HR"%}
+              selected="selected" {% endifequal %}>HR</option>
+              <option value="IT" {% ifequal obj.role "IT"%}
+              selected="selected" {% endifequal %}>IT</option>
+              <option value="LT" {% ifequal obj.role "LT"%}
+              selected="selected" {% endifequal %}>LT</option>
+              <option value="OTHERS" {% ifequal obj.role "OTHERS"%}
+              selected="selected" {% endifequal %}>OTHERS</option>
+              <option value="SUPPLY CHAIN" {% ifequal obj.role "SUPPLY CHAIN"%}
+              selected="selected" {% endifequal %}>SUPPLY CHAIN</option>
+              <option value="PREE PRES" {% ifequal obj.role "PREE PRES"%}
+              selected="selected" {% endifequal %}>PREE PRES</option>
+              <option value="MARKETING" {% ifequal obj.role "MARKETING"%}
+              selected="selected" {% endifequal %}>MARKETING</option>
+              <option value="ADMIN" {% ifequal obj.role "ADMIN"%}
+              selected="selected" {% endifequal %}>ADMIN</option>
+              <option value="SALES" {% ifequal obj.role "SALES"%}
+              selected="selected" {% endifequal %}>SALES</option>
+              <option value="SALE BACKEND" {% ifequal obj.role "SALE BACKEND"%}
+              selected="selected" {% endifequal %}>SALE BACKEND</option>
+              <option value="AD OPS" {% ifequal obj.role "AD OPS"%}
+              selected="selected" {% endifequal %}>AD OPS</option>
+              <option value="IT STOCK - WORKING" {% ifequal obj.role "IT STOCK - WORKING"%}
+              selected="selected" {% endifequal %}>IT STOCK - WORKING</option>
+              <option value="IT STOCK - JUNK" {% ifequal obj.role "IT STOCK - JUNK"%}
+              selected="selected" {% endifequal %}>IT STOCK - JUNK</option>
+              <option value="IT STOCK - REPAIR" {% ifequal obj.role "IT STOCK - REPAIR"%}
+              selected="selected" {% endifequal %}>IT STOCK - REPAIR</option>
+              <option value="SYNDICATION" {% ifequal obj.role "SYNDICATION"%}
+              selected="selected" {% endifequal %}>SYNDICATION</option>
+              <option value="CALL CENTER" {% ifequal obj.role "CALL CENTER"%}
+              selected="selected" {% endifequal %}>CALL CENTER</option>
+
+
+            </select>
+          </div>
+        </div>    
+      </div>
+      <div class="tab-pane fade" id="step4">
+       <div class="control-group">
+        <label class="control-label">Model</label>
+        <div class="controls">
+          <input type="text" name="model_name" placeholder="model" value="{{obj.model_name}}">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">S No</label>
+        <div class="controls">
+          <input type="text" name="s_no" placeholder="sno" value="{{obj.s_no}}">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Processor</label>
+        <div class="controls">
+          <input type="text" name="processor" placeholder="processor" value="{{obj.processor}}">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">RAM</label>
+        <div class="controls">
+          <input type="text" name="ram" placeholder="ram" value="{{obj.ram}}">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">HDD</label>
+        <div class="controls">
+          <input type="text" name="hdd" placeholder="hdd" value="{{obj.hdd}}">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">OS</label>
+        <div class="controls">
+          <input type="text" name="os" placeholder="os" value="{{obj.os}}">
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="step5">
+      <div class="control-group">
+        <label class="control-label">Warranty/AMC</label>
+        <div class="controls">
+          <input type="text" name="warr_amc" placeholder="warr_amc" value="{{obj.warr_amc}}">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Warranty Vendor</label>
+        <div class="controls">
+          <input type="text" name="warr_vend" placeholder="warr_vend" value="{{obj.warr_vend}}">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Warranty Start Date</label>
+        <div class="controls">
+          <input type="text" name="warr_start_date" placeholder="warr_start_date" value="{{obj.warr_start_date}}">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Warranty Expiry Date</label>
+        <div class="controls">
+          <input type="text" name="warr_exp_date" placeholder="warr_exp_date" value="{{obj.warr_exp_date}}">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Company</label>
+        <div class="controls">
+          <input type="text" name="company" placeholder="company" value="{{obj.company}}">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Po Details</label>
+        <div class="controls">
+          <input type="text" name="po_details" placeholder="po_details" value="{{obj.po_details}}">
+        </div>
+      </div>
+      <div class="controls">
+        <input type="submit" value="submit" class="btn btn-primary" />
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+</div>
+</div>
+<script>
+$(function () {
+  $('#myTab a:first').tab('show');
+})
+</script>
+<script>
+function setOptions(chosen){
+  var selbox=document.myform.role;
+  selbox.options.length=0;
+  if(chosen == "EDITORIALS"){
+    selbox.options[selbox.options.length] = new Option('DESIGNER');
+    selbox.options[selbox.options.length] = new Option('DESK');
+    selbox.options[selbox.options.length] = new Option('REPORTING');
+    selbox.options[selbox.options.length] = new Option('PHOTO SECTION');
+  }
+  if(chosen=="MEDIA MARKETING"){
+    selbox.options[selbox.options.length] = new Option('CREATIVE');
+    selbox.options[selbox.options.length] = new Option('MIS');
+    selbox.options[selbox.options.length] = new Option('MARKETING');
+    selbox.options[selbox.options.length] = new Option('FEILD');
+    selbox.options[selbox.options.length] = new Option('AD OPS-MM');
+    selbox.options[selbox.options.length] = new Option('COMMERCIAL');
+  }
+  if(chosen=="CIRCULATION"){
+    selbox.options[selbox.options.length] = new Option('CIRCULATION');
+
+  }
+
+  if(chosen=="FINANCE"){
+    selbox.options[selbox.options.length] = new Option('FINANCE');
+  }
+
+  if(chosen=="HR"){
+    selbox.options[selbox.options.length] = new Option('HR');
+  }
+
+  if(chosen=="IT"){
+    selbox.options[selbox.options.length] = new Option('IT');
+  }
+  if(chosen=="LT"){
+    selbox.options[selbox.options.length] = new Option('LT');
+  }
+  if(chosen=="MINT"){
+    selbox.options[selbox.options.length] = new Option('MINT');
+  }
+  if(chosen=="OTHERS"){
+    selbox.options[selbox.options.length] = new Option('OTHERS');
+  }
+  if(chosen=="SUPPLY CHAIN"){
+    selbox.options[selbox.options.length] = new Option('SUPPLY CHAIN');
+    selbox.options[selbox.options.length] = new Option('PREE PRES');
+  }
+  if(chosen=="MARKETING"){
+    selbox.options[selbox.options.length] = new Option('MARKETING');
+  }
+  if(chosen=="ADMIN"){
+    selbox.options[selbox.options.length] = new Option('ADMIN');
+  }
+  if(chosen=="SALES"){
+    selbox.options[selbox.options.length] = new Option('SALES');
+    selbox.options[selbox.options.length] = new Option('SALES BACKEND');
+  }
+  if(chosen=="AD OPS"){
+    selbox.options[selbox.options.length] = new Option('AD OPS');
+  }
+  if(chosen=="IT STOCK USE"){
+    selbox.options[selbox.options.length] = new Option('IT STOCK - WORKING');
+  }
+  if(chosen=="IT STOCK - NOT IN USE"){
+    selbox.options[selbox.options.length] = new Option('IT STOCK - JUNK');
+    selbox.options[selbox.options.length] = new Option('IT STOCK - WORKING');
+    selbox.options[selbox.options.length] = new Option('IT STOCK - REPAIR');
+  }
+  if(chosen=="SYNDICATION"){
+    selbox.options[selbox.options.length] = new Option('SYNDICATION');
+  }
+  if(chosen=="CALL CENTER"){
+    selbox.options[selbox.options.length] = new Option('CALL CENTER');
+  }
+}
+</script>
+<script>
+function setOptionsforregion(chosen){
+  var selbox=document.myform.unit;
+  selbox.options.length=0;
+  if(chosen == "LUCKNOW"){
+    selbox.options[selbox.options.length] = new Option('KANPUR');
+    selbox.options[selbox.options.length] = new Option('VARANASI');
+    selbox.options[selbox.options.length] = new Option('GORAKHPUR');
+    selbox.options[selbox.options.length] = new Option('ALLAHABAD');
+    selbox.options[selbox.options.length] = new Option('LUCKNOW');
+  }
+}
+</script>
+<script>
+function setOptionsforunit(chosen){
+  var selbox=document.myform.location;
+  selbox.options.length=0;
+  if(chosen == "KANPUR"){
+    selbox.options[selbox.options.length] = new Option('BANDA');
+    selbox.options[selbox.options.length] = new Option('ETAWAH');
+    selbox.options[selbox.options.length] = new Option('FARRUKHABAD');
+    selbox.options[selbox.options.length] = new Option('FATHEPUR');
+    selbox.options[selbox.options.length] = new Option('ORAI');
+    selbox.options[selbox.options.length] = new Option('JHASI');
+    selbox.options[selbox.options.length] = new Option('UNNAO');
+    selbox.options[selbox.options.length] = new Option('HARDOI');
+    selbox.options[selbox.options.length] = new Option('AKBARPUR');
+    selbox.options[selbox.options.length] = new Option('AURRAIYA');
+    selbox.options[selbox.options.length] = new Option('CHITRAKOOT');
+    selbox.options[selbox.options.length] = new Option('KANNAUJ');
+    selbox.options[selbox.options.length] = new Option('MAHOBA');
+    selbox.options[selbox.options.length] = new Option('HAMIRPUR');
+    selbox.options[selbox.options.length] = new Option('KANPUR');
+  }
+  if(chosen == "VARANASI"){
+    selbox.options[selbox.options.length] = new Option('GHAZIPUR');
+    selbox.options[selbox.options.length] = new Option('MAU');
+    selbox.options[selbox.options.length] = new Option('MUGHALSARAI');
+    selbox.options[selbox.options.length] = new Option('AZAMGARH');
+    selbox.options[selbox.options.length] = new Option('BALLIA');
+    selbox.options[selbox.options.length] = new Option('GYANPUR');
+    selbox.options[selbox.options.length] = new Option('JAUNPUR');
+    selbox.options[selbox.options.length] = new Option('MIRZAPUR');
+    selbox.options[selbox.options.length] = new Option('SONBHADRA');
+    selbox.options[selbox.options.length] = new Option('ANPARA');
+    selbox.options[selbox.options.length] = new Option('CHANDAULI');
+    selbox.options[selbox.options.length] = new Option('BHADOHI');
+    selbox.options[selbox.options.length] = new Option('VARANASI');
+
+
+  }
+  if(chosen == "GORAKHPUR"){
+    selbox.options[selbox.options.length] = new Option('MAHARAJGANJ');
+    selbox.options[selbox.options.length] = new Option('SIDDARTH NAGAR');
+    selbox.options[selbox.options.length] = new Option('SANTKABIR NAGAR');
+    selbox.options[selbox.options.length] = new Option('BASTI');
+    selbox.options[selbox.options.length] = new Option('DEORIA');
+    selbox.options[selbox.options.length] = new Option('PADRAUNA');
+    selbox.options[selbox.options.length] = new Option('GORAKHPUR');
+  }
+  if(chosen == "ALLAHABAD"){
+    selbox.options[selbox.options.length] = new Option('KHUSHAMBI');
+    selbox.options[selbox.options.length] = new Option('PRATABGARH');
+    selbox.options[selbox.options.length] = new Option('NAINI');
+    selbox.options[selbox.options.length] = new Option('ALLAHABAD');
+  }
+  if(chosen == "LUCKNOW"){
+    selbox.options[selbox.options.length] = new Option('BAHRAICH');
+    selbox.options[selbox.options.length] = new Option('BARABANKI');
+    selbox.options[selbox.options.length] = new Option('GONDA');
+    selbox.options[selbox.options.length] = new Option('FAIZABAD');
+    selbox.options[selbox.options.length] = new Option('RAIBARELI');
+    selbox.options[selbox.options.length] = new Option('SHRAWASTI');
+    selbox.options[selbox.options.length] = new Option('BALRAMPUR');
+    selbox.options[selbox.options.length] = new Option('AMBEDKARNAGAR');
+    selbox.options[selbox.options.length] = new Option('SITAPUR');
+    selbox.options[selbox.options.length] = new Option('SULTANPUR');
+    selbox.options[selbox.options.length] = new Option('LUCKNOW');
+  }
+}
+</script>
+{% endblock %}
